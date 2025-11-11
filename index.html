@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="ms">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worksheet Prasekolah</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+      background: linear-gradient(135deg, #FFF5F7 0%, #FFF9E6 100%);
+      color: #2D3748;
+      overflow-x: hidden;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #FFB6D9 0%, #A8E6CF 100%);
+      padding: 60px 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '⭐';
+      position: absolute;
+      font-size: 80px;
+      opacity: 0.2;
+      top: 20px;
+      left: 10%;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '🌈';
+      position: absolute;
+      font-size: 80px;
+      opacity: 0.2;
+      bottom: 20px;
+      right: 10%;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      color: #FFFFFF;
+      margin: 0 0 20px 0;
+      text-shadow: 3px 3px 6px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero p {
+      font-size: 20px;
+      color: #FFFFFF;
+      margin: 0 auto;
+      max-width: 700px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-illustration {
+      margin-top: 30px;
+      font-size: 100px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Section Styling */
+    section {
+      margin: 60px 0;
+      padding: 40px 20px;
+      background: #FFFFFF;
+      border-radius: 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 36px;
+      color: #FF6B9D;
+      margin-bottom: 40px;
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
+    h2::after {
+      content: '✨';
+      margin-left: 10px;
+    }
+
+    h3 {
+      color: #2D3748;
+      font-size: 24px;
+    }
+
+    /* About Section */
+    .about {
+      background: linear-gradient(135deg, #FFF9E6 0%, #E6F7FF 100%);
+      text-align: center;
+    }
+
+    .teacher-photo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #FFD93D 0%, #FF6B9D 100%);
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .teacher-name {
+      font-size: 28px;
+      color: #FF6B9D;
+      margin-bottom: 10px;
+    }
+
+    .teacher-bio {
+      font-size: 18px;
+      color: #4A5568;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Categories Grid */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .category-card {
+      background: linear-gradient(135deg, #FFEAA7 0%, #FFD93D 100%);
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .category-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .category-icon {
+      font-size: 60px;
+      margin-bottom: 15px;
+    }
+
+    .category-title {
+      font-size: 20px;
+      color: #2D3748;
+      font-weight: bold;
+    }
+
+    /* Worksheets Grid */
+    .worksheets-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .worksheet-card {
+      background: #FFFFFF;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .worksheet-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .worksheet-thumbnail {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #A8E6CF 0%, #FFD93D 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+    }
+
+    .worksheet-info {
+      padding: 20px;
+    }
+
+    .worksheet-title {
+      font-size: 20px;
+      color: #2D3748;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .worksheet-age {
+      display: inline-block;
+      background: #FFB6D9;
+      color: #FFFFFF;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .drive-button {
+      display: block;
+      width: 100%;
+      background: linear-gradient(135deg, #FF6B9D 0%, #FF8FAB 100%);
+      color: #FFFFFF;
+      padding: 12px;
+      border: none;
+      border-radius: 15px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .drive-button:hover {
+      transform: scale(1.05);
+    }
+
+    /* Steps Section */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .step-card {
+      text-align: center;
+      padding: 30px 20px;
+      background: linear-gradient(135deg, #E6F7FF 0%, #D4F1F4 100%);
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .step-number {
+      width: 60px;
+      height: 60px;
+      background: #FF6B9D;
+      color: #FFFFFF;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: bold;
+      margin: 0 auto 15px;
+    }
+
+    .step-icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    .step-text {
+      font-size: 16px;
+      color: #2D3748;
+      font-weight: bold;
+    }
+
+    /* Testimonials */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .testimonial-card {
+      background: linear-gradient(135deg, #FFF9E6 0%, #FFEAA7 100%);
+      padding: 25px;
+      border-radius: 20px;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .testimonial-card::before {
+      content: '💬';
+      position: absolute;
+      top: -20px;
+      left: 20px;
+      font-size: 40px;
+    }
+
+    .testimonial-text {
+      font-size: 16px;
+      color: #4A5568;
+      line-height: 1.6;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+
+    .testimonial-author {
+      font-size: 14px;
+      color: #FF6B9D;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    /* Contact Section */
+    .contact {
+      background: linear-gradient(135deg, #FFD93D 0%, #FFEAA7 100%);
+    }
+
+    .contact-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .contact-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #FFFFFF;
+      color: #2D3748;
+      padding: 15px 30px;
+      border-radius: 25px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .contact-button:hover {
+      transform: translateY(-5px);
+    }
+
+    .contact-icon {
+      font-size: 24px;
+    }
+
+    /* Google Drive Preview */
+    .drive-preview {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+
+    /* Divider */
+    .divider {
+      text-align: center;
+      font-size: 40px;
+      margin: 40px 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      .categories-grid,
+      .worksheets-grid,
+      .steps-grid,
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  <script src="https://cdn.tailwindcss.com" type="text/javascript"></script>
+ </head>
+ <body><!-- Hero Section -->
+  <div class="hero">
+   <h1 id="hero-headline">Worksheet Prasekolah – Belajar Secara Menyeronokkan!</h1>
+   <p id="hero-subheadline">Bahan latihan membaca, menulis, mengira, dan mewarna untuk umur 4–6 tahun.</p>
+   <div class="hero-illustration">
+    📚✏️🎨
+   </div>
+  </div>
+  <div class="container"><!-- About Section -->
+   <section class="about">
+    <h2>Tentang Guru Kami</h2>
+    <div class="teacher-photo">
+     👨‍🏫
+    </div>
+    <div class="teacher-name" id="teacher-name">
+     Cikgu Zulhafiz
+    </div>
+    <p class="teacher-bio" id="teacher-bio">Guru prasekolah berpengalaman 8 tahun yang suka mencipta bahan pembelajaran kreatif untuk membantu kanak-kanak belajar dengan cara yang menyeronokkan dan berkesan.</p>
+   </section>
+   <div class="divider">
+    🌟 🌈 🌟
+   </div><!-- Categories Section -->
+   <section>
+    <h2>Kategori Worksheet</h2>
+    <div class="categories-grid">
+     <div class="category-card">
+      <div class="category-icon">
+       🎨
+      </div>
+      <div class="category-title">
+       Mewarna
+      </div>
+     </div>
+     <div class="category-card">
+      <div class="category-icon">
+       ✍️
+      </div>
+      <div class="category-title">
+       Kemahiran Menulis
+      </div>
+     </div>
+     <div class="category-card">
+      <div class="category-icon">
+       🔤
+      </div>
+      <div class="category-title">
+       Mengenal Huruf
+      </div>
+     </div>
+     <div class="category-card">
+      <div class="category-icon">
+       🔢
+      </div>
+      <div class="category-title">
+       Nombor &amp; Matematik
+      </div>
+     </div>
+     <div class="category-card">
+      <div class="category-icon">
+       ✂️
+      </div>
+      <div class="category-title">
+       Menggunting &amp; Menampal
+      </div>
+     </div>
+     <div class="category-card">
+      <div class="category-icon">
+       🧩
+      </div>
+      <div class="category-title">
+       Aktiviti Kreatif
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="divider">
+    ⭐ 🎈 ⭐
+   </div><!-- Featured Worksheets -->
+   <section>
+    <h2>Worksheet Pilihan</h2>
+    <div class="worksheets-grid">
+     <div class="worksheet-card">
+      <div class="worksheet-thumbnail">
+       🎨
+      </div>
+      <div class="worksheet-info">
+       <div class="worksheet-title">
+        Mewarna Haiwan Jinak
+       </div><span class="worksheet-age">Umur 4+</span> <a href="#" class="drive-button" id="worksheet-1-btn" target="_blank" rel="noopener noreferrer">📁 Lihat di Google Drive</a>
+      </div>
+     </div>
+     <div class="worksheet-card">
+      <div class="worksheet-thumbnail">
+       ✍️
+      </div>
+      <div class="worksheet-info">
+       <div class="worksheet-title">
+        Latihan Menulis Huruf A-Z
+       </div><span class="worksheet-age">Umur 5+</span> <a href="#" class="drive-button" id="worksheet-2-btn" target="_blank" rel="noopener noreferrer">📁 Lihat di Google Drive</a>
+      </div>
+     </div>
+     <div class="worksheet-card">
+      <div class="worksheet-thumbnail">
+       🔢
+      </div>
+      <div class="worksheet-info">
+       <div class="worksheet-title">
+        Mengenal Nombor 1-20
+       </div><span class="worksheet-age">Umur 4+</span> <a href="#" class="drive-button" id="worksheet-3-btn" target="_blank" rel="noopener noreferrer">📁 Lihat di Google Drive</a>
+      </div>
+     </div>
+     <div class="worksheet-card">
+      <div class="worksheet-thumbnail">
+       🔤
+      </div>
+      <div class="worksheet-info">
+       <div class="worksheet-title">
+        Suku Kata Mudah
+       </div><span class="worksheet-age">Umur 5+</span> <a href="#" class="drive-button" id="worksheet-4-btn" target="_blank" rel="noopener noreferrer">📁 Lihat di Google Drive</a>
+      </div>
+     </div>
+     <div class="worksheet-card">
+      <div class="worksheet-thumbnail">
+       ✂️
+      </div>
+      <div class="worksheet-info">
+       <div class="worksheet-title">
+        Aktiviti Gunting &amp; Tampal
+       </div><span class="worksheet-age">Umur 4+</span> <a href="#" class="drive-button" id="worksheet-5-btn" target="_blank" rel="noopener noreferrer">📁 Lihat di Google Drive</a>
+      </div>
+     </div>
+     <div class="worksheet-card">
+      <div class="worksheet-thumbnail">
+       🧩
+      </div>
+      <div class="worksheet-info">
+       <div class="worksheet-title">
+        Pattern &amp; Matching
+       </div><span class="worksheet-age">Umur 5+</span> <a href="#" class="drive-button" id="worksheet-6-btn" target="_blank" rel="noopener noreferrer">📁 Lihat di Google Drive</a>
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="divider">
+    🌈 ✨ 🌈
+   </div><!-- Google Drive Preview -->
+   <section>
+    <h2>Preview Worksheet</h2>
+    <p style="text-align: center; color: #4A5568; margin-bottom: 20px;">Lihat contoh worksheet kami di bawah:</p><iframe class="drive-preview" id="preview-iframe" src="about:blank" title="Google Drive Preview"></iframe>
+    <p style="text-align: center; color: #718096; margin-top: 15px; font-size: 14px;">💡 Tip: Masukkan link Google Drive anda di panel edit untuk preview worksheet</p>
+   </section>
+   <div class="divider">
+    🎈 🌟 🎈
+   </div><!-- How to Buy -->
+   <section>
+    <h2>Cara Pembelian</h2>
+    <div class="steps-grid">
+     <div class="step-card">
+      <div class="step-number">
+       1
+      </div>
+      <div class="step-icon">
+       📋
+      </div>
+      <div class="step-text">
+       Pilih worksheet yang anda suka
+      </div>
+     </div>
+     <div class="step-card">
+      <div class="step-number">
+       2
+      </div>
+      <div class="step-icon">
+       📁
+      </div>
+      <div class="step-text">
+       Klik link Google Drive
+      </div>
+     </div>
+     <div class="step-card">
+      <div class="step-number">
+       3
+      </div>
+      <div class="step-icon">
+       💳
+      </div>
+      <div class="step-text">
+       Buat pembayaran (Bank/QR/Shopee)
+      </div>
+     </div>
+     <div class="step-card">
+      <div class="step-number">
+       4
+      </div>
+      <div class="step-icon">
+       ⬇️
+      </div>
+      <div class="step-text">
+       Download terus selepas bayaran
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="divider">
+    ⭐ 💖 ⭐
+   </div><!-- Testimonials -->
+   <section>
+    <h2>Testimoni Ibu Bapa</h2>
+    <div class="testimonials-grid">
+     <div class="testimonial-card">
+      <p class="testimonial-text">"Anak saya sangat suka worksheet mewarna! Sekarang dia lebih fokus dan kemahiran motor halusnya bertambah baik."</p>
+      <div class="testimonial-author">
+       - Puan Aminah, Ibu kepada Aisyah (5 tahun)
+      </div>
+     </div>
+     <div class="testimonial-card">
+      <p class="testimonial-text">"Worksheet ini sangat membantu anak saya belajar huruf. Dalam masa 2 bulan, dia dah boleh baca perkataan mudah!"</p>
+      <div class="testimonial-author">
+       - Encik Rahman, Bapa kepada Danial (6 tahun)
+      </div>
+     </div>
+     <div class="testimonial-card">
+      <p class="testimonial-text">"Mudah untuk print dan kualiti sangat bagus. Anak-anak saya seronok buat aktiviti setiap hari!"</p>
+      <div class="testimonial-author">
+       - Puan Siti, Ibu kepada 3 orang anak
+      </div>
+     </div>
+    </div>
+   </section>
+   <div class="divider">
+    🌟 🎨 🌟
+   </div><!-- Contact Section -->
+   <section class="contact">
+    <h2>Hubungi Kami</h2>
+    <p style="text-align: center; color: #4A5568; margin-bottom: 30px;">Ada soalan? Jom berbual dengan kami!</p>
+    <div class="contact-buttons"><a href="#" class="contact-button" id="whatsapp-link" target="_blank" rel="noopener noreferrer"> <span class="contact-icon">📱</span> <span>WhatsApp</span> </a> <a href="#" class="contact-button" id="email-link"> <span class="contact-icon">✉️</span> <span>Email</span> </a> <a href="#" class="contact-button" id="instagram-link" target="_blank" rel="noopener noreferrer"> <span class="contact-icon">📸</span> <span>Instagram</span> </a>
+    </div>
+   </section>
+  </div>
+  <script>
+    const defaultConfig = {
+      hero_headline: "Worksheet Prasekolah – Belajar Secara Menyeronokkan!",
+      hero_subheadline: "Bahan latihan membaca, menulis, mengira, dan mewarna untuk umur 4–6 tahun.",
+      teacher_name: "Cikgu Zulhafiz",
+      teacher_bio: "Guru prasekolah berpengalaman 8 tahun yang suka mencipta bahan pembelajaran kreatif untuk membantu kanak-kanak belajar dengan cara yang menyeronokkan dan berkesan.",
+      worksheet_1_link: "https://drive.google.com/file/d/1VTneAhoJLRKZGQSv_wpQW2V5kQvwBXV1/view?usp=drive_link",
+      worksheet_2_link: "#",
+      worksheet_3_link: "#",
+      worksheet_4_link: "#",
+      worksheet_5_link: "#",
+      worksheet_6_link: "#",
+      preview_iframe_link: "about:blank",
+      whatsapp_number: "+60123456789",
+      email_address: "cikguzulhafiz@email.com",
+      instagram_handle: "@worksheetprasekolah"
+    };
+
+    async function onConfigChange(config) {
+      // Update hero section
+      document.getElementById('hero-headline').textContent = config.hero_headline || defaultConfig.hero_headline;
+      document.getElementById('hero-subheadline').textContent = config.hero_subheadline || defaultConfig.hero_subheadline;
+      
+      // Update teacher info
+      document.getElementById('teacher-name').textContent = config.teacher_name || defaultConfig.teacher_name;
+      document.getElementById('teacher-bio').textContent = config.teacher_bio || defaultConfig.teacher_bio;
+      
+      // Update worksheet links
+      const ws1Link = config.worksheet_1_link || defaultConfig.worksheet_1_link;
+      const ws2Link = config.worksheet_2_link || defaultConfig.worksheet_2_link;
+      const ws3Link = config.worksheet_3_link || defaultConfig.worksheet_3_link;
+      const ws4Link = config.worksheet_4_link || defaultConfig.worksheet_4_link;
+      const ws5Link = config.worksheet_5_link || defaultConfig.worksheet_5_link;
+      const ws6Link = config.worksheet_6_link || defaultConfig.worksheet_6_link;
+      
+      document.getElementById('worksheet-1-btn').href = ws1Link;
+      document.getElementById('worksheet-2-btn').href = ws2Link;
+      document.getElementById('worksheet-3-btn').href = ws3Link;
+      document.getElementById('worksheet-4-btn').href = ws4Link;
+      document.getElementById('worksheet-5-btn').href = ws5Link;
+      document.getElementById('worksheet-6-btn').href = ws6Link;
+      
+      // Show/hide buttons based on valid links
+      document.getElementById('worksheet-1-btn').style.pointerEvents = (ws1Link && ws1Link !== '#') ? 'auto' : 'none';
+      document.getElementById('worksheet-2-btn').style.pointerEvents = (ws2Link && ws2Link !== '#') ? 'auto' : 'none';
+      document.getElementById('worksheet-3-btn').style.pointerEvents = (ws3Link && ws3Link !== '#') ? 'auto' : 'none';
+      document.getElementById('worksheet-4-btn').style.pointerEvents = (ws4Link && ws4Link !== '#') ? 'auto' : 'none';
+      document.getElementById('worksheet-5-btn').style.pointerEvents = (ws5Link && ws5Link !== '#') ? 'auto' : 'none';
+      document.getElementById('worksheet-6-btn').style.pointerEvents = (ws6Link && ws6Link !== '#') ? 'auto' : 'none';
+      
+      document.getElementById('worksheet-1-btn').style.opacity = (ws1Link && ws1Link !== '#') ? '1' : '0.5';
+      document.getElementById('worksheet-2-btn').style.opacity = (ws2Link && ws2Link !== '#') ? '1' : '0.5';
+      document.getElementById('worksheet-3-btn').style.opacity = (ws3Link && ws3Link !== '#') ? '1' : '0.5';
+      document.getElementById('worksheet-4-btn').style.opacity = (ws4Link && ws4Link !== '#') ? '1' : '0.5';
+      document.getElementById('worksheet-5-btn').style.opacity = (ws5Link && ws5Link !== '#') ? '1' : '0.5';
+      document.getElementById('worksheet-6-btn').style.opacity = (ws6Link && ws6Link !== '#') ? '1' : '0.5';
+      
+      // Update preview iframe
+      const previewLink = config.preview_iframe_link || defaultConfig.preview_iframe_link;
+      document.getElementById('preview-iframe').src = previewLink;
+      
+      // Update contact links
+      const whatsappNumber = config.whatsapp_number || defaultConfig.whatsapp_number;
+      document.getElementById('whatsapp-link').href = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}`;
+      
+      const emailAddress = config.email_address || defaultConfig.email_address;
+      document.getElementById('email-link').href = `mailto:${emailAddress}`;
+      
+      const instagramHandle = config.instagram_handle || defaultConfig.instagram_handle;
+      const cleanHandle = instagramHandle.replace('@', '');
+      document.getElementById('instagram-link').href = `https://instagram.com/${cleanHandle}`;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["hero_headline", config.hero_headline || defaultConfig.hero_headline],
+        ["hero_subheadline", config.hero_subheadline || defaultConfig.hero_subheadline],
+        ["teacher_name", config.teacher_name || defaultConfig.teacher_name],
+        ["teacher_bio", config.teacher_bio || defaultConfig.teacher_bio],
+        ["worksheet_1_link", config.worksheet_1_link || defaultConfig.worksheet_1_link],
+        ["worksheet_2_link", config.worksheet_2_link || defaultConfig.worksheet_2_link],
+        ["worksheet_3_link", config.worksheet_3_link || defaultConfig.worksheet_3_link],
+        ["worksheet_4_link", config.worksheet_4_link || defaultConfig.worksheet_4_link],
+        ["worksheet_5_link", config.worksheet_5_link || defaultConfig.worksheet_5_link],
+        ["worksheet_6_link", config.worksheet_6_link || defaultConfig.worksheet_6_link],
+        ["preview_iframe_link", config.preview_iframe_link || defaultConfig.preview_iframe_link],
+        ["whatsapp_number", config.whatsapp_number || defaultConfig.whatsapp_number],
+        ["email_address", config.email_address || defaultConfig.email_address],
+        ["instagram_handle", config.instagram_handle || defaultConfig.instagram_handle]
+      ]);
+    }
+
+    // Initialize SDK
+    (async function initializeApp() {
+      if (window.elementSdk) {
+        window.elementSdk.init({
+          defaultConfig,
+          onConfigChange,
+          mapToCapabilities,
+          mapToEditPanelValues
+        });
+        
+        // Initial render with default config
+        await onConfigChange(window.elementSdk.config || defaultConfig);
+      } else {
+        // Fallback if SDK not available
+        await onConfigChange(defaultConfig);
+      }
+    })();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'99cc75548265cc5f',t:'MTc2Mjg1MDE0OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
